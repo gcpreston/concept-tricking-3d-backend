@@ -40,10 +40,14 @@ defmodule Tricking3dBackend.TricksFixtures do
   Generate a trick_stance.
   """
   def trick_stance_fixture(attrs \\ %{}) do
+    trick = trick_fixture()
+    stance = stance_fixture()
+
     {:ok, trick_stance} =
       attrs
       |> Enum.into(%{
-
+        trick_id: trick.id,
+        stance_id: stance.id
       })
       |> Tricking3dBackend.Tricks.create_trick_stance()
 

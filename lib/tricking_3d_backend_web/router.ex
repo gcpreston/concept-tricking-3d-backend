@@ -20,6 +20,12 @@ defmodule Tricking3dBackendWeb.Router do
     get "/", PageController, :index
   end
 
+  scope "/api", Tricking3dBackendWeb do
+    pipe_through :api
+
+    resources "/tricks", TrickController, except: [:new, :edit]
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", Tricking3dBackendWeb do
   #   pipe_through :api

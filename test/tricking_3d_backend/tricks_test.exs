@@ -77,7 +77,12 @@ defmodule Tricking3dBackend.TricksTest do
     end
 
     test "create_stance/1 with valid data creates a stance" do
-      valid_attrs = %{description: "some description", direction: "some direction", name: "some name", plant_foot: "some plant_foot"}
+      valid_attrs = %{
+        description: "some description",
+        direction: "some direction",
+        name: "some name",
+        plant_foot: "some plant_foot"
+      }
 
       assert {:ok, %Stance{} = stance} = Tricks.create_stance(valid_attrs)
       assert stance.description == "some description"
@@ -92,7 +97,13 @@ defmodule Tricking3dBackend.TricksTest do
 
     test "update_stance/2 with valid data updates the stance" do
       stance = stance_fixture()
-      update_attrs = %{description: "some updated description", direction: "some updated direction", name: "some updated name", plant_foot: "some updated plant_foot"}
+
+      update_attrs = %{
+        description: "some updated description",
+        direction: "some updated direction",
+        name: "some updated name",
+        plant_foot: "some updated plant_foot"
+      }
 
       assert {:ok, %Stance{} = stance} = Tricks.update_stance(stance, update_attrs)
       assert stance.description == "some updated description"
@@ -124,7 +135,7 @@ defmodule Tricking3dBackend.TricksTest do
 
     import Tricking3dBackend.TricksFixtures
 
-    @invalid_attrs %{}
+    @invalid_attrs %{trick_id: nil, stance_id: nil}
 
     test "list_trick_stances/0 returns all trick_stances" do
       trick_stance = trick_stance_fixture()
@@ -137,9 +148,13 @@ defmodule Tricking3dBackend.TricksTest do
     end
 
     test "create_trick_stance/1 with valid data creates a trick_stance" do
-      valid_attrs = %{}
+      trick = trick_fixture()
+      stance = stance_fixture()
+      valid_attrs = %{trick_id: trick.id, stance_id: stance.id}
 
       assert {:ok, %TrickStance{} = trick_stance} = Tricks.create_trick_stance(valid_attrs)
+      assert trick_stance.trick_id == trick.id
+      assert trick_stance.stance_id == stance.id
     end
 
     test "create_trick_stance/1 with invalid data returns error changeset" do
@@ -148,14 +163,20 @@ defmodule Tricking3dBackend.TricksTest do
 
     test "update_trick_stance/2 with valid data updates the trick_stance" do
       trick_stance = trick_stance_fixture()
-      update_attrs = %{}
+      new_stance = stance_fixture()
+      update_attrs = %{stance_id: new_stance.id}
 
-      assert {:ok, %TrickStance{} = trick_stance} = Tricks.update_trick_stance(trick_stance, update_attrs)
+      assert {:ok, %TrickStance{} = trick_stance} =
+               Tricks.update_trick_stance(trick_stance, update_attrs)
+      assert trick_stance.stance_id == new_stance.id
     end
 
     test "update_trick_stance/2 with invalid data returns error changeset" do
       trick_stance = trick_stance_fixture()
-      assert {:error, %Ecto.Changeset{}} = Tricks.update_trick_stance(trick_stance, @invalid_attrs)
+
+      assert {:error, %Ecto.Changeset{}} =
+               Tricks.update_trick_stance(trick_stance, @invalid_attrs)
+
       assert trick_stance == Tricks.get_trick_stance!(trick_stance.id)
     end
 
