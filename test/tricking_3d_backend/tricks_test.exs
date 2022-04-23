@@ -118,4 +118,56 @@ defmodule Tricking3dBackend.TricksTest do
       assert %Ecto.Changeset{} = Tricks.change_stance(stance)
     end
   end
+
+  describe "trick_stances" do
+    alias Tricking3dBackend.Tricks.TrickStance
+
+    import Tricking3dBackend.TricksFixtures
+
+    @invalid_attrs %{}
+
+    test "list_trick_stances/0 returns all trick_stances" do
+      trick_stance = trick_stance_fixture()
+      assert Tricks.list_trick_stances() == [trick_stance]
+    end
+
+    test "get_trick_stance!/1 returns the trick_stance with given id" do
+      trick_stance = trick_stance_fixture()
+      assert Tricks.get_trick_stance!(trick_stance.id) == trick_stance
+    end
+
+    test "create_trick_stance/1 with valid data creates a trick_stance" do
+      valid_attrs = %{}
+
+      assert {:ok, %TrickStance{} = trick_stance} = Tricks.create_trick_stance(valid_attrs)
+    end
+
+    test "create_trick_stance/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Tricks.create_trick_stance(@invalid_attrs)
+    end
+
+    test "update_trick_stance/2 with valid data updates the trick_stance" do
+      trick_stance = trick_stance_fixture()
+      update_attrs = %{}
+
+      assert {:ok, %TrickStance{} = trick_stance} = Tricks.update_trick_stance(trick_stance, update_attrs)
+    end
+
+    test "update_trick_stance/2 with invalid data returns error changeset" do
+      trick_stance = trick_stance_fixture()
+      assert {:error, %Ecto.Changeset{}} = Tricks.update_trick_stance(trick_stance, @invalid_attrs)
+      assert trick_stance == Tricks.get_trick_stance!(trick_stance.id)
+    end
+
+    test "delete_trick_stance/1 deletes the trick_stance" do
+      trick_stance = trick_stance_fixture()
+      assert {:ok, %TrickStance{}} = Tricks.delete_trick_stance(trick_stance)
+      assert_raise Ecto.NoResultsError, fn -> Tricks.get_trick_stance!(trick_stance.id) end
+    end
+
+    test "change_trick_stance/1 returns a trick_stance changeset" do
+      trick_stance = trick_stance_fixture()
+      assert %Ecto.Changeset{} = Tricks.change_trick_stance(trick_stance)
+    end
+  end
 end

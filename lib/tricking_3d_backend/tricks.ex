@@ -198,4 +198,99 @@ defmodule Tricking3dBackend.Tricks do
     Stance.changeset(stance, attrs)
   end
 
+  alias Tricking3dBackend.Tricks.TrickStance
+
+  @doc """
+  Returns the list of trick_stances.
+
+  ## Examples
+
+      iex> list_trick_stances()
+      [%TrickStance{}, ...]
+
+  """
+  def list_trick_stances do
+    Repo.all(TrickStance)
+  end
+
+  @doc """
+  Gets a single trick_stance.
+
+  Raises `Ecto.NoResultsError` if the Trick stance does not exist.
+
+  ## Examples
+
+      iex> get_trick_stance!(123)
+      %TrickStance{}
+
+      iex> get_trick_stance!(456)
+      ** (Ecto.NoResultsError)
+
+  """
+  def get_trick_stance!(id), do: Repo.get!(TrickStance, id)
+
+  @doc """
+  Creates a trick_stance.
+
+  ## Examples
+
+      iex> create_trick_stance(%{field: value})
+      {:ok, %TrickStance{}}
+
+      iex> create_trick_stance(%{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def create_trick_stance(attrs \\ %{}) do
+    %TrickStance{}
+    |> TrickStance.changeset(attrs)
+    |> Repo.insert()
+  end
+
+  @doc """
+  Updates a trick_stance.
+
+  ## Examples
+
+      iex> update_trick_stance(trick_stance, %{field: new_value})
+      {:ok, %TrickStance{}}
+
+      iex> update_trick_stance(trick_stance, %{field: bad_value})
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def update_trick_stance(%TrickStance{} = trick_stance, attrs) do
+    trick_stance
+    |> TrickStance.changeset(attrs)
+    |> Repo.update()
+  end
+
+  @doc """
+  Deletes a trick_stance.
+
+  ## Examples
+
+      iex> delete_trick_stance(trick_stance)
+      {:ok, %TrickStance{}}
+
+      iex> delete_trick_stance(trick_stance)
+      {:error, %Ecto.Changeset{}}
+
+  """
+  def delete_trick_stance(%TrickStance{} = trick_stance) do
+    Repo.delete(trick_stance)
+  end
+
+  @doc """
+  Returns an `%Ecto.Changeset{}` for tracking trick_stance changes.
+
+  ## Examples
+
+      iex> change_trick_stance(trick_stance)
+      %Ecto.Changeset{data: %TrickStance{}}
+
+  """
+  def change_trick_stance(%TrickStance{} = trick_stance, attrs \\ %{}) do
+    TrickStance.changeset(trick_stance, attrs)
+  end
 end
