@@ -34,4 +34,18 @@ defmodule Tricking3dBackend.AnimationsFixtures do
 
     model
   end
+
+  @doc """
+  Generate a animation.
+  """
+  def animation_fixture(attrs \\ %{}) do
+    {:ok, animation} =
+      attrs
+      |> Enum.into(%{
+        name: "some name"
+      })
+      |> Tricking3dBackend.Animations.create_animation()
+
+    animation
+  end
 end

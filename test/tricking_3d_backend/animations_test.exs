@@ -116,4 +116,58 @@ defmodule Tricking3dBackend.AnimationsTest do
       assert %Ecto.Changeset{} = Animations.change_model(model)
     end
   end
+
+  describe "animations" do
+    alias Tricking3dBackend.Animations.Animation
+
+    import Tricking3dBackend.AnimationsFixtures
+
+    @invalid_attrs %{name: nil}
+
+    test "list_animations/0 returns all animations" do
+      animation = animation_fixture()
+      assert Animations.list_animations() == [animation]
+    end
+
+    test "get_animation!/1 returns the animation with given id" do
+      animation = animation_fixture()
+      assert Animations.get_animation!(animation.id) == animation
+    end
+
+    test "create_animation/1 with valid data creates a animation" do
+      valid_attrs = %{name: "some name"}
+
+      assert {:ok, %Animation{} = animation} = Animations.create_animation(valid_attrs)
+      assert animation.name == "some name"
+    end
+
+    test "create_animation/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Animations.create_animation(@invalid_attrs)
+    end
+
+    test "update_animation/2 with valid data updates the animation" do
+      animation = animation_fixture()
+      update_attrs = %{name: "some updated name"}
+
+      assert {:ok, %Animation{} = animation} = Animations.update_animation(animation, update_attrs)
+      assert animation.name == "some updated name"
+    end
+
+    test "update_animation/2 with invalid data returns error changeset" do
+      animation = animation_fixture()
+      assert {:error, %Ecto.Changeset{}} = Animations.update_animation(animation, @invalid_attrs)
+      assert animation == Animations.get_animation!(animation.id)
+    end
+
+    test "delete_animation/1 deletes the animation" do
+      animation = animation_fixture()
+      assert {:ok, %Animation{}} = Animations.delete_animation(animation)
+      assert_raise Ecto.NoResultsError, fn -> Animations.get_animation!(animation.id) end
+    end
+
+    test "change_animation/1 returns a animation changeset" do
+      animation = animation_fixture()
+      assert %Ecto.Changeset{} = Animations.change_animation(animation)
+    end
+  end
 end
