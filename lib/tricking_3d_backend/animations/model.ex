@@ -16,7 +16,8 @@ defmodule Tricking3dBackend.Animations.Model do
   @doc false
   def changeset(model, attrs) do
     model
-    |> cast(attrs, [:name, :filepath])
+    |> cast(attrs, [:name, :filepath, :mocap_tricker_id])
+    |> cast_assoc(:mocap_tricker)
     |> validate_required([:name, :filepath])
   end
 end

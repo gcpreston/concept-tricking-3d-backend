@@ -13,7 +13,7 @@ defmodule Tricking3dBackend.Animations.MocapTricker do
   @doc false
   def changeset(mocap_tricker, attrs) do
     mocap_tricker
-    |> cast(attrs, [:first_name, :last_name, :dob])
-    |> validate_required([:first_name, :last_name, :dob])
+    |> cast(attrs, [:first_name, :last_name])
+    |> validate_required([:first_name, :last_name])
   end
 end

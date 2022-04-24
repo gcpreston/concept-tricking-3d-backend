@@ -17,7 +17,9 @@ defmodule Tricking3dBackend.Animations.Animation do
   @doc false
   def changeset(animation, attrs) do
     animation
-    |> cast(attrs, [:name])
+    |> cast(attrs, [:name, :model_id, :trick_id])
+    |> cast_assoc(:model)
+    |> cast_assoc(:trick)
     |> validate_required([:name])
   end
 end
