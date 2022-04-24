@@ -4,9 +4,9 @@ defmodule Tricking3dBackend.Tricks.Stance do
 
   schema "stances" do
     field :description, :string
-    field :direction, :string
+    field :direction, Ecto.Enum, values: [:forward, :backward]
     field :name, :string
-    field :plant_foot, :string
+    field :plant_foot, Ecto.Enum, values: [:left, :right]
 
     timestamps()
   end
